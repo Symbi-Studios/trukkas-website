@@ -16,10 +16,9 @@ const Hero = () => {
         </p>
 
         <a
-          href="mailto:hello@trukkas.com"
           className="bg-[#0241E8] hover:bg-blue-700 transition-all px-8 py-3 rounded-full text-white font-medium inline-block"
         >
-          Contact us
+          Coming soon
         </a>
       </div>
     </section>
