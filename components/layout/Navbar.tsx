@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 
 export default function Navbar() {
@@ -8,9 +10,12 @@ export default function Navbar() {
       
       <Image src={'/logoWhite.png'} alt="trukkas" width={129} height={33} />
 
-      <button className="bg-[#0241E8] cursor-pointer hover:bg-blue-700 transition-all px-6 py-2 rounded-full text-white font-medium">
-        Contact us
-      </button>
+      <a
+          href="mailto:hello@trukkas.com"
+          className="bg-[#0241E8] hover:bg-blue-700 transition-all px-8 py-3 rounded-full text-white font-medium inline-block"
+        >
+          Contact us
+        </a>
       
     </nav>
   );
