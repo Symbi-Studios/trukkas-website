@@ -6,7 +6,7 @@ const Hero = () => {
       className="h-screen w-full relative overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/heroBg.png')" }}
     >
-      <div className="max-w-3xl mx-auto translate-y-32 flex flex-col items-center gap-3 px-6">
+      <div className="max-w-3xl mx-auto translate-y-44 flex flex-col items-center gap-3 px-6">
         <h1 className="font-bold text-3xl md:text-6xl text-center">
           Move Goods. <br /> Faster. Smarter.
         </h1>
