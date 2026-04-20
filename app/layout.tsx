@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={` ${satoshi.variable} h-screen  antialiased`}
+      className={` ${satoshi.variable} h-screen overflow-hidden antialiased`}
     >
       <body className="font-satoshi flex flex-col min-h-screen">
         <Navbar />
