@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css"
 import localFont from 'next/font/local'
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 
 
@@ -28,11 +29,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={` ${satoshi.variable} h-screen overflow-hidden antialiased`}
+      className={` ${satoshi.variable} h-screen  antialiased`}
     >
-      <body className="font-satoshi">
-        <Navbar/>
-        {children}
+      <body className="font-satoshi flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
       </body>
     </html>
   );
