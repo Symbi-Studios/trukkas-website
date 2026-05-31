@@ -1,31 +1,43 @@
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import {
-  Apple,
   ArrowRight,
   Check,
   ChevronRight,
-  Circle,
   FileText,
   Menu,
-  Play,
+  X,
 } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useEffect, useState } from 'react'
 import PageTransition from '../components/PageTransition'
-import containersImage from '../assets/trukkas-containers.png'
+import appStoreButton from '../assets/app-store-button.png'
+import heroBottomBar from '../assets/hero-bottom-bar.png'
+import driverCardImage from '../assets/hero-driver-card.png'
+import documentsCardImage from '../assets/hero-documents-card.png'
+import howDocumentsCard from '../assets/how-documents-card.png'
+import howEscrowCard from '../assets/how-escrow-card.png'
+import howTimelineCard from '../assets/how-timeline-card.png'
+import containersImage from '../assets/trukkas-containers-fit.png'
 import phoneImage from '../assets/iphone-request.png'
+import playStoreButton from '../assets/play-store-button.png'
+import logoBlue from '../assets/trukkas-logo-blue.png'
+import logoFooter from '../assets/trukkas-logo-footer.png'
 import logoWhite from '../assets/trukkas-logo-white.png'
 import truckSunset from '../assets/truck-sunset.png'
 import truckField from '../assets/truck-field.png'
 
-const navItems = ['How it works', 'For Truckers', 'Safety & Trust', 'Contact']
-
-const trustItems = [
-  'Verified truckers & drivers',
-  'Escrow-backed every job',
-  'Documents reviewed before dispatch',
-  'Real-time job tracking',
-  '30% mobilization. No surprises.',
-  'Verified truckers & drivers',
+const navItems = [
+  { label: 'How it works', drawerLabel: 'How It Works', href: '#how-it-works' },
+  {
+    label: 'For Truckers',
+    drawerLabel: 'For Truckers & Drivers',
+    href: '#for-truckers',
+  },
+  {
+    label: 'Safety & Trust',
+    drawerLabel: 'Safety & Trust',
+    href: '#safety-and-trust',
+  },
+  { label: 'Contact', drawerLabel: 'Contact', href: '#contact' },
 ]
 
 const steps = [
@@ -33,19 +45,19 @@ const steps = [
     title: 'Submit your job.',
     description:
       'Enter your pickup, destination, container details and TDO. The system checks your TDO is at least 24 hours out. Our ops team reviews your documents before anything moves.',
-    body: <DocumentsCard />,
+    image: howDocumentsCard,
   },
   {
     title: 'Pick your trucker.',
     description:
       'Receive offers from verified truckers with their rates and ratings. Accept the one that works. Your payment locks in escrow immediately. 30% mobilizes your driver upfront.',
-    body: <EscrowCard />,
+    image: howEscrowCard,
   },
   {
     title: 'Track it. Confirm it. Done.',
     description:
       'Watch your cargo move on live GPS. At delivery, share your unlock code to start offloading. Confirm completion and the final 70% releases to the trucker automatically.',
-    body: <TimelineCard />,
+    image: howTimelineCard,
   },
 ]
 
@@ -55,38 +67,104 @@ const footerLinks = {
 }
 
 function LandingNav() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [menuOpen])
+
   return (
-    <header className="relative z-30 flex h-16 items-center justify-between px-5 text-white md:px-11">
+    <header className="relative z-30 flex h-14 items-center justify-between px-4 text-white md:h-16 md:px-11">
+      <a href="/" className="focus-ring rounded-card md:hidden">
+        <img src={logoWhite} alt="Trukkas" className="h-5 w-auto" />
+      </a>
+
       <nav className="hidden items-center gap-7 text-[13px] font-bold md:flex">
         {navItems.map((item) => (
           <a
-            key={item}
-            href={`#${item.toLowerCase().replaceAll(' ', '-').replace('&', 'and')}`}
+            key={item.href}
+            href={item.href}
             className="opacity-90 transition hover:opacity-100"
           >
-            {item}
+            {item.label}
           </a>
         ))}
       </nav>
 
       <button
         type="button"
-        className="focus-ring inline-grid size-10 place-items-center rounded-full bg-white/15 md:hidden"
+        className="focus-ring inline-grid size-9 place-items-center rounded-full bg-white/15 md:hidden"
         aria-label="Open navigation"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen(true)}
       >
-        <Menu size={20} />
+        <Menu size={17} />
       </button>
 
-      <a href="/" className="focus-ring rounded-card">
+      <a
+        href="/"
+        className="focus-ring absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 rounded-card md:inline-flex"
+      >
         <img src={logoWhite} alt="Trukkas" className="h-6 w-auto" />
       </a>
 
       <a
         href="#get-the-app"
-        className="focus-ring inline-flex h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-button transition hover:-translate-y-0.5"
+        className="focus-ring hidden h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:inline-flex"
       >
         Get the App <ArrowRight size={15} />
       </a>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-[100] bg-trukkas-bg-alt px-7 py-13 text-[#090909]"
+            initial={{ opacity: 0, x: '12%' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: '8%' }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+          >
+            <div className="flex items-center justify-between">
+              <a href="/" className="focus-ring rounded-card" onClick={() => setMenuOpen(false)}>
+                <img src={logoBlue} alt="Trukkas" className="h-7 w-auto" />
+              </a>
+              <button
+                type="button"
+                className="focus-ring grid size-10 place-items-center rounded-full text-trukkas-blue"
+                aria-label="Close navigation"
+                onClick={() => setMenuOpen(false)}
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <nav className="mt-15 grid gap-5 text-[27px] font-bold leading-tight tracking-[-0.01em]">
+              {navItems.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  className="w-fit transition hover:text-trukkas-blue"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.drawerLabel}
+                </a>
+              ))}
+            </nav>
+
+            <a
+              href="#get-the-app"
+              className="focus-ring mt-7 inline-flex h-11 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[15px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D]"
+              onClick={() => setMenuOpen(false)}
+            >
+              Get the App <ArrowRight size={17} />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
@@ -94,12 +172,12 @@ function LandingNav() {
 function HeroSection() {
   return (
     <section className="landing-shell overflow-hidden rounded-[24px] bg-trukkas-light-blue">
-      <div className="relative min-h-[980px] bg-[linear-gradient(180deg,#58bddf_0%,#b8e9f6_62%,#eef7f8_100%)] md:min-h-[1110px]">
+      <div className="relative h-[560px] overflow-hidden bg-[linear-gradient(180deg,#58bddf_0%,#b8e9f6_62%,#eef7f8_100%)] md:h-[calc(100svh-68px)] md:min-h-[760px] lg:min-h-[860px] xl:min-h-[920px]">
         <LandingNav />
 
-        <div className="relative z-20 mx-auto max-w-4xl px-6 pt-13 text-center md:pt-18">
+        <div className="relative z-20 mx-auto max-w-4xl px-5 pt-2 text-center md:px-6 md:pt-8">
           <motion.div
-            className="mx-auto mb-8 inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[12px] font-bold text-success shadow-soft"
+            className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[8px] font-bold text-success shadow-soft md:mb-6 md:px-4 md:py-1.5 md:text-[12px]"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45 }}
@@ -109,7 +187,7 @@ function HeroSection() {
           </motion.div>
 
           <motion.h1
-            className="mx-auto max-w-3xl text-[56px] font-bold leading-[0.98] tracking-[-0.02em] text-[#111111] md:text-[88px] lg:text-[96px]"
+            className="mx-auto max-w-4xl text-[32px] font-bold leading-[1.02] tracking-[-0.02em] text-[#111111] sm:text-[44px] md:text-[76px] lg:text-[86px]"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.08, duration: 0.6, ease: 'easeOut' }}
@@ -120,7 +198,7 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p
-            className="mx-auto mt-8 max-w-[590px] text-[17px] font-bold leading-7 text-[#151515]"
+            className="mx-auto mt-4 max-w-[330px] text-[10px] font-bold leading-4 text-[#151515] md:mt-5 md:max-w-[590px] md:text-[16px] md:leading-7"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.16, duration: 0.55 }}
@@ -130,73 +208,55 @@ function HeroSection() {
           </motion.p>
 
           <motion.div
-            className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row"
+            className="mt-5 flex items-center justify-center gap-3 sm:gap-4 md:mt-6"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24, duration: 0.55 }}
           >
             <a
               href="#get-the-app"
-              className="focus-ring inline-flex h-12 items-center gap-2 rounded-[5px] bg-trukkas-blue px-6 text-[14px] font-bold text-white shadow-button transition hover:-translate-y-0.5"
+              className="focus-ring inline-flex h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-4 text-[12px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 sm:px-6 md:h-11 md:text-[13px]"
             >
               Get the App <ArrowRight size={16} />
             </a>
             <a
               href="#how-it-works"
-              className="focus-ring inline-flex h-12 items-center gap-2 rounded-[5px] bg-white px-6 text-[14px] font-bold text-trukkas-dark-blue shadow-soft transition hover:-translate-y-0.5"
+              className="focus-ring inline-flex h-10 items-center gap-2 rounded-[5px] bg-white px-4 text-[12px] font-bold text-trukkas-dark-blue shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 sm:px-6 md:h-11 md:text-[13px]"
             >
               How it works <ArrowRight size={16} />
             </a>
           </motion.div>
         </div>
 
-        <div className="absolute inset-x-0 bottom-0 z-10">
+        <div className="absolute inset-x-0 bottom-[-22px] z-10 overflow-hidden md:bottom-[-36px] lg:bottom-[-44px]">
           <img
             src={containersImage}
             alt=""
-            className="h-[405px] w-full object-cover object-bottom md:h-[545px]"
+            className="mx-auto h-[190px] w-full object-cover object-bottom sm:h-[230px] md:h-auto md:w-full md:max-w-none"
           />
         </div>
 
-        <motion.img
-          src={phoneImage}
-          alt="Trukkas mobile app requesting a cargo truck"
-          className="absolute bottom-0 left-1/2 z-20 w-[360px] max-w-[78vw] -translate-x-1/2 md:w-[520px]"
-          initial={{ opacity: 0, y: 70 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.34, duration: 0.7, ease: 'easeOut' }}
-        />
-
         <motion.div
-          className="absolute bottom-[150px] left-[7%] z-30 hidden w-[315px] rounded-[12px] bg-white p-7 shadow-[0_20px_50px_rgb(0_0_0/0.18)] md:block"
-          initial={{ opacity: 0, x: -30, y: 20 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ delay: 0.55, duration: 0.55 }}
+          className="absolute left-1/2 top-[290px] z-20 h-[280px] w-[min(1040px,calc(100%-20px))] -translate-x-1/2 sm:top-[325px] md:top-[480px] md:h-[430px] lg:top-[505px]"
+          initial={{ opacity: 0, y: 70, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ delay: 0.34, duration: 0.75, ease: 'easeOut' }}
         >
-          <h3 className="text-[16px] font-bold text-trukkas-dark-blue">
-            Driver heading to terminal.
-          </h3>
-          <p className="mt-3 text-[11px] leading-4 text-cool-700">
-            Your driver is on the way to the pickup terminal. Please ensure your
-            cargo is ready.
-          </p>
-          <div className="mt-6 h-2 overflow-hidden rounded-full bg-cool-200">
-            <motion.div
-              className="h-full rounded-full bg-trukkas-blue"
-              initial={{ width: '12%' }}
-              animate={{ width: '78%' }}
-              transition={{ delay: 0.75, duration: 1.1, ease: 'easeInOut' }}
-            />
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="absolute bottom-[118px] right-[8%] z-30 hidden w-[315px] rounded-[12px] bg-white p-6 shadow-[0_20px_50px_rgb(0_0_0/0.18)] lg:block"
-          initial={{ opacity: 0, x: 30, y: 20 }}
-          animate={{ opacity: 1, x: 0, y: 0 }}
-          transition={{ delay: 0.62, duration: 0.55 }}
-        >
-          <ProgressList />
+          <img
+            src={phoneImage}
+            alt="Trukkas mobile app requesting a cargo truck"
+            className="absolute left-1/2 top-0 w-[292px] max-w-[82vw] -translate-x-1/2 sm:w-[330px] md:w-[440px] lg:w-[510px]"
+          />
+          <img
+            src={driverCardImage}
+            alt=""
+            className="absolute left-[-76px] top-[132px] w-[225px] drop-shadow-2xl md:left-[4%] md:top-[168px] md:w-[285px] lg:top-[185px] lg:w-[340px]"
+          />
+          <img
+            src={documentsCardImage}
+            alt=""
+            className="absolute right-[-150px] top-[58px] w-[260px] drop-shadow-2xl md:right-[-70px] md:top-[178px] md:w-[330px] lg:right-[2%] lg:top-[235px] lg:w-[360px] xl:w-[420px]"
+          />
         </motion.div>
       </div>
 
@@ -207,16 +267,15 @@ function HeroSection() {
 
 function TrustTicker() {
   return (
-    <div className="hide-scrollbar flex gap-10 overflow-x-auto bg-trukkas-blue px-4 py-3 text-white">
-      {[...trustItems, ...trustItems].map((item, index) => (
-        <div
-          key={`${item}-${index}`}
-          className="flex shrink-0 items-center gap-3 text-[13px] font-bold"
-        >
-          <Circle size={9} />
-          {item}
-        </div>
-      ))}
+    <div
+      id="safety-and-trust"
+      className="h-[30px] overflow-hidden bg-trukkas-blue md:h-[46px]"
+    >
+      <img
+        src={heroBottomBar}
+        alt=""
+        className="h-full w-full max-w-none object-cover object-left"
+      />
     </div>
   )
 }
@@ -262,77 +321,16 @@ function DocumentsCard() {
   )
 }
 
-function EscrowCard() {
-  return (
-    <div>
-      <div className="mb-5 flex items-start justify-between">
-        <div>
-          <p className="text-[14px] font-bold text-trukkas-dark-blue">Escrow locked</p>
-          <p className="mt-1 text-[11px] text-cool-600">Payment protected</p>
-        </div>
-        <p className="text-[17px] font-bold text-trukkas-blue">NGN 840,000</p>
-      </div>
-      <div className="h-4 overflow-hidden rounded-full bg-success/20">
-        <div className="h-full w-[32%] rounded-full bg-trukkas-blue" />
-      </div>
-      <div className="mt-4 flex items-center justify-between text-[11px] font-bold">
-        <span className="text-trukkas-blue">30% mobilized - NGN 252k</span>
-        <span className="text-success">70% held - NGN 588k</span>
-      </div>
-      <div className="mt-5 flex gap-3">
-        <span className="rounded-full bg-success/10 px-3 py-1.5 text-[10px] font-bold text-success">
-          Offer accepted
-        </span>
-        <span className="rounded-full bg-trukkas-blue/10 px-3 py-1.5 text-[10px] font-bold text-trukkas-blue">
-          Payment locked in escrow
-        </span>
-      </div>
-    </div>
-  )
-}
-
-function ProgressList() {
-  const events = [
-    ['Documents submitted', 'Documents received - 3:18 pm', true],
-    ['Documents verified', 'Documents approved - 3:28 pm', true],
-    ['Driver assigned', 'Driver assigned - 3:38 pm', true],
-    ['Driver heading to pickup', 'In progress', false],
-  ] as const
-
-  return (
-    <div className="relative grid gap-5 pl-7">
-      <div className="absolute bottom-5 left-[9px] top-3 w-0.5 bg-trukkas-blue/30" />
-      {events.map(([title, description, complete]) => (
-        <div key={title} className="relative">
-          <span
-            className={`absolute -left-7 top-0 grid size-5 place-items-center rounded-full ${
-              complete ? 'bg-trukkas-blue text-white' : 'bg-cool-200 text-cool-600'
-            }`}
-          >
-            {complete ? <Check size={12} /> : <Circle size={8} />}
-          </span>
-          <p className="text-[13px] font-bold text-trukkas-dark-blue">{title}</p>
-          <p className="mt-1 text-[10px] text-cool-600">{description}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function TimelineCard() {
-  return <ProgressList />
-}
-
 function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="bg-trukkas-bg-alt py-24 md:py-32">
+    <section id="how-it-works" className="bg-trukkas-bg-alt py-14 md:py-32">
       <div className="container-shell">
         <div className="grid gap-8 md:grid-cols-[1fr_0.55fr] md:items-start">
           <div>
             <span className="rounded-full bg-trukkas-blue/10 px-3 py-1.5 text-[11px] font-bold text-trukkas-blue">
               How it works
             </span>
-            <h2 className="mt-8 max-w-[560px] text-[46px] font-bold leading-[1.02] tracking-[-0.02em] text-[#111111] md:text-[64px]">
+            <h2 className="mt-6 max-w-[560px] text-[38px] font-bold leading-[1.02] tracking-[-0.02em] text-[#111111] md:mt-8 md:text-[64px]">
               From request
               <br />
               to delivery.
@@ -340,40 +338,58 @@ function HowItWorksSection() {
               No guesswork.
             </h2>
           </div>
-          <div className="pt-2 md:pt-18">
-            <p className="max-w-[340px] text-[15px] font-bold leading-6 text-trukkas-dark-blue">
+          <div className="pt-0 md:pt-18">
+            <p className="max-w-[340px] text-[13px] font-bold leading-5 text-trukkas-dark-blue md:text-[15px] md:leading-6">
               Structured from the first request to the last kilometre. You stay
               informed at every stage.
             </p>
             <a
               href="#request-flow"
-              className="focus-ring mt-6 inline-flex h-10 items-center gap-2 rounded-[5px] border border-cool-400 bg-white px-4 text-[12px] font-bold text-trukkas-dark-blue transition hover:-translate-y-0.5"
+              className="focus-ring mt-5 inline-flex h-8 items-center gap-2 rounded-[5px] border border-gray-400/70 bg-transparent px-3 text-[11px] font-bold text-trukkas-dark-blue transition hover:-translate-y-0.5 md:mt-6 md:h-10 md:px-4 md:text-[12px]"
             >
               See full flow <ArrowRight size={14} />
             </a>
           </div>
         </div>
 
-        <div id="request-flow" className="mt-24 grid gap-9 md:grid-cols-3">
+        <div
+          id="request-flow"
+          className="relative mt-13 grid gap-10 md:mt-24 md:grid-cols-3 md:gap-9"
+        >
           {steps.map((step, index) => (
             <motion.article
               key={step.title}
-              className="relative"
+              className="relative pl-8 md:pl-0"
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ delay: index * 0.08, duration: 0.55, ease: 'easeOut' }}
             >
-              <span className="mb-6 grid size-8 place-items-center rounded-full bg-trukkas-blue text-[15px] font-bold text-white">
+              <div className="mb-5 hidden items-center gap-3 md:flex">
+                <span className="grid size-8 shrink-0 place-items-center rounded-full bg-trukkas-blue text-[15px] font-bold text-white">
+                  {index + 1}
+                </span>
+                <span className="h-px flex-1 bg-trukkas-blue/45" />
+              </div>
+              <span className="absolute left-0 top-0 z-10 grid size-7 place-items-center rounded-full bg-trukkas-blue text-[13px] font-bold text-white md:hidden">
                 {index + 1}
               </span>
-              <div className="min-h-[188px] rounded-[10px] bg-white p-5 shadow-soft">
-                {step.body}
-              </div>
-              <h3 className="mt-7 text-[24px] font-bold tracking-[-0.01em] text-[#111111]">
+              <span
+                className="absolute left-[13px] top-[39px] w-0.5 bg-trukkas-blue/45 md:hidden"
+                style={{
+                  height:
+                    index < steps.length - 1 ? 'calc(100% - 9px)' : 'calc(100% - 44px)',
+                }}
+              />
+              <img
+                src={step.image}
+                alt=""
+                className="w-full rounded-[10px] drop-shadow-[0_18px_38px_rgb(0_0_0/0.08)]"
+              />
+              <h3 className="mt-6 text-[22px] font-bold tracking-[-0.01em] text-[#111111] md:mt-7 md:text-[24px]">
                 {step.title}
               </h3>
-              <p className="mt-4 max-w-[340px] text-[14px] leading-6 text-cool-700">
+              <p className="mt-3 max-w-[340px] text-[13px] leading-5 text-cool-700 md:mt-4 md:text-[14px] md:leading-6">
                 {step.description}
               </p>
             </motion.article>
@@ -442,27 +458,22 @@ function AudienceSection() {
   )
 }
 
-function AppStoreButton({
-  icon,
-  eyebrow,
+function StoreBadge({
+  href,
+  image,
   label,
 }: {
-  icon: ReactNode
-  eyebrow: string
+  href: string
+  image: string
   label: string
 }) {
   return (
     <a
-      href="#contact"
-      className="focus-ring inline-flex h-14 min-w-[170px] items-center justify-center gap-3 rounded-[5px] bg-trukkas-blue px-5 text-left text-white shadow-button transition hover:-translate-y-0.5"
+      href={href}
+      aria-label={label}
+      className="focus-ring inline-flex rounded-[999px] transition hover:-translate-y-0.5"
     >
-      {icon}
-      <span>
-        <span className="block text-[9px] font-bold uppercase leading-none">
-          {eyebrow}
-        </span>
-        <span className="mt-1 block text-[16px] font-bold leading-none">{label}</span>
-      </span>
+      <img src={image} alt={label} className="h-20 w-auto sm:h-24" />
     </a>
   )
 }
@@ -536,16 +547,16 @@ function AppSection() {
           Request trucks, track jobs, manage documents, confirm deliveries - all
           from one app. Available on iOS and Android.
         </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <AppStoreButton
-            icon={<Apple size={24} />}
-            eyebrow="Download on the"
-            label="App Store"
+        <div className="mt-6 flex flex-col items-center justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3">
+          <StoreBadge
+            href="#contact"
+            image={appStoreButton}
+            label="Download on the App Store"
           />
-          <AppStoreButton
-            icon={<Play size={22} fill="currentColor" />}
-            eyebrow="Download on the"
-            label="Play Store"
+          <StoreBadge
+            href="#contact"
+            image={playStoreButton}
+            label="Download on the Play Store"
           />
         </div>
       </div>
@@ -560,7 +571,7 @@ function Footer() {
         <div className="border-t border-white/10 pt-14">
           <div className="grid gap-14 md:grid-cols-[1fr_0.75fr]">
             <div>
-              <img src={logoWhite} alt="Trukkas" className="h-14 w-auto" />
+              <img src={logoFooter} alt="Trukkas" className="h-[58px] w-auto" />
               <p className="mt-8 max-w-[330px] text-[15px] font-medium leading-7 text-white/75">
                 A trusted, transparent freight logistics marketplace connecting
                 freight forwarders with verified truckers across Nigeria.
