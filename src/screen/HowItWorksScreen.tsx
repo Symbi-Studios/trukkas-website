@@ -33,7 +33,7 @@ type TimelineStep = {
 const navItems = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'For Truckers', href: '/for-truckers' },
-  { label: 'Safety & Trust', href: '/#safety-and-trust' },
+  { label: 'Safety & Trust', href: '/safety-and-trust' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -453,7 +453,9 @@ function Footer() {
                               ? '/'
                               : link === 'For Truckers'
                                 ? '/for-truckers'
-                                : '/how-it-works'
+                                : link === 'Safety & Trust'
+                                  ? '/safety-and-trust'
+                                  : '/how-it-works'
                           }
                           className="transition hover:text-white"
                         >

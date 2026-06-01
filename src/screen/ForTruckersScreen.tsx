@@ -26,7 +26,7 @@ type IconType = ComponentType<{ size?: number; strokeWidth?: number }>
 const navItems = [
   { label: 'How it works', href: '/how-it-works' },
   { label: 'For Truckers', href: '/for-truckers' },
-  { label: 'Safety & Trust', href: '/#safety-and-trust' },
+  { label: 'Safety & Trust', href: '/safety-and-trust' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -35,7 +35,7 @@ const footerLinks = {
     { label: 'Home', href: '/' },
     { label: 'How It Works', href: '/how-it-works' },
     { label: 'For Truckers', href: '/for-truckers' },
-    { label: 'Safety & Trust', href: '/#safety-and-trust' },
+    { label: 'Safety & Trust', href: '/safety-and-trust' },
   ],
   Legal: [
     { label: 'Privacy Policy', href: '/contact' },

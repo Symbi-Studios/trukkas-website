@@ -6,6 +6,7 @@ import ForTruckersScreen from './screen/ForTruckersScreen'
 import HowItWorksScreen from './screen/HowItWorksScreen'
 import HomeScreen from './screen/HomeScreen'
 import NotFoundScreen from './screen/NotFoundScreen'
+import SafetyTrustScreen from './screen/SafetyTrustScreen'
 import ServicesScreen from './screen/ServicesScreen'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route index element={<HomeScreen />} />
         <Route path="how-it-works" element={<HowItWorksScreen />} />
         <Route path="for-truckers" element={<ForTruckersScreen />} />
+        <Route path="safety-and-trust" element={<SafetyTrustScreen />} />
         <Route path="services" element={<ServicesScreen />} />
         <Route path="about" element={<AboutScreen />} />
         <Route path="contact" element={<ContactScreen />} />
