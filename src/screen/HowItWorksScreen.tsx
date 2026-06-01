@@ -317,8 +317,8 @@ function Timeline({ audience }: { audience: Audience }) {
   return (
     <section className="bg-trukkas-bg-alt pb-22 pt-18 md:pb-36 md:pt-24">
       <div className="container-shell">
-        <div className="relative mx-auto max-w-[1100px] pl-13 md:pl-0">
-          <span className="absolute left-[21px] top-4 h-[calc(100%-10px)] w-0.5 bg-trukkas-blue md:left-1/2 md:-translate-x-1/2" />
+        <div className="relative mx-auto max-w-[1100px]">
+          <span className="absolute left-7 top-5 h-[calc(100%-12px)] w-0.5 bg-trukkas-blue md:left-1/2 md:-translate-x-1/2" />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -334,13 +334,29 @@ function Timeline({ audience }: { audience: Audience }) {
                 const isLeft = index % 2 === 0
 
                 return (
-                  <article
+                  <motion.article
                     key={`${step.title}-${index}`}
-                    className={`relative grid md:grid-cols-[1fr_72px_1fr] md:items-start ${
+                    className={`relative grid grid-cols-[56px_minmax(0,1fr)] gap-x-4 md:grid-cols-[1fr_72px_1fr] md:items-start md:gap-x-0 ${
                       isLeft ? '' : 'md:text-left'
                     }`}
+                    initial={{ opacity: 0, y: 34 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.35, margin: '-80px 0px' }}
+                    transition={{
+                      duration: 0.55,
+                      ease: 'easeOut',
+                      delay: Math.min(index * 0.04, 0.18),
+                    }}
                   >
-                    <div className={`${isLeft ? 'md:pr-20' : 'md:col-start-3 md:pl-20'}`}>
+                    <div className="relative z-10 col-start-1 row-start-1 grid size-11 place-items-center justify-self-center rounded-full border-[3px] border-trukkas-blue bg-trukkas-bg-alt text-trukkas-blue md:absolute md:left-1/2 md:top-0 md:size-[58px] md:-translate-x-1/2">
+                      <Icon size={22} strokeWidth={2.25} />
+                    </div>
+
+                    <div
+                      className={`col-start-2 min-w-0 ${
+                        isLeft ? 'md:col-start-1 md:pr-20' : 'md:col-start-3 md:pl-20'
+                      }`}
+                    >
                       <p className="text-[11px] font-bold uppercase text-trukkas-blue md:text-[12px]">
                         Step {String(index + 1).padStart(2, '0')}
                       </p>
@@ -351,11 +367,7 @@ function Timeline({ audience }: { audience: Audience }) {
                         {step.description}
                       </p>
                     </div>
-
-                    <div className="absolute -left-[43px] top-0 z-10 grid size-11 place-items-center rounded-full border-[3px] border-trukkas-blue bg-trukkas-bg-alt text-trukkas-blue md:left-1/2 md:-translate-x-1/2 md:size-[58px]">
-                      <Icon size={22} strokeWidth={2.25} />
-                    </div>
-                  </article>
+                  </motion.article>
                 )
               })}
             </motion.div>
