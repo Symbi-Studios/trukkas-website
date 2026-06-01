@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import PageTransition from '../components/PageTransition'
-import appStoreButton from '../assets/app-store-button.png'
+import appStoreButton from '../assets/app-store-button-tight.png'
 import heroBottomBar from '../assets/hero-bottom-bar.png'
 import driverCardImage from '../assets/hero-driver-card.png'
 import documentsCardImage from '../assets/hero-documents-card.png'
@@ -18,7 +18,7 @@ import howEscrowCard from '../assets/how-escrow-card.png'
 import howTimelineCard from '../assets/how-timeline-card.png'
 import containersImage from '../assets/trukkas-containers-fit.png'
 import phoneImage from '../assets/iphone-request.png'
-import playStoreButton from '../assets/play-store-button.png'
+import playStoreButton from '../assets/play-store-button-tight.png'
 import logoBlue from '../assets/trukkas-logo-blue.png'
 import logoFooter from '../assets/trukkas-logo-footer.png'
 import logoWhite from '../assets/trukkas-logo-white.png'
@@ -423,7 +423,7 @@ function AudienceSection() {
       {panels.map((panel) => (
         <motion.article
           key={panel.title}
-          className="relative min-h-[470px] overflow-hidden"
+          className="relative min-h-[600px] overflow-hidden md:min-h-[470px]"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -434,22 +434,22 @@ function AudienceSection() {
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(0_0_54/0.08),rgb(0_0_54/0.78))]" />
-          <div className="relative z-10 flex h-full max-w-[560px] flex-col justify-end px-8 pb-16 pt-32 text-white md:px-16">
-            <span className="mb-5 w-fit rounded-full bg-white px-3 py-1.5 text-[11px] font-bold text-trukkas-blue">
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(0_0_54/0.02)_0%,rgb(0_0_54/0.25)_45%,rgb(0_0_54/0.88)_100%)] md:bg-[linear-gradient(180deg,rgb(0_0_54/0.08),rgb(0_0_54/0.78))]" />
+          <div className="relative z-10 flex h-full max-w-[560px] flex-col justify-end px-5 pb-12 pt-64 text-white md:px-16 md:pb-16 md:pt-32">
+            <span className="mb-5 w-fit rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-bold text-trukkas-blue md:bg-white">
               {panel.label}
             </span>
-            <h2 className="text-[36px] font-bold leading-[1.04] tracking-[-0.02em] md:text-[46px]">
+            <h2 className="max-w-[360px] text-[31px] font-bold leading-[1.1] tracking-[-0.02em] md:max-w-none md:text-[46px] md:leading-[1.04]">
               {panel.title}
             </h2>
-            <p className="mt-5 text-[15px] font-medium leading-7 text-white/90">
+            <p className="mt-5 max-w-[350px] text-[15px] font-medium leading-6 text-white md:max-w-none md:leading-7 md:text-white/90">
               {panel.body}
             </p>
             <a
               href="#get-the-app"
-              className="focus-ring mt-7 inline-flex h-11 w-fit items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white transition hover:-translate-y-0.5"
+              className="focus-ring mt-6 inline-flex h-9 w-[146px] items-center justify-center gap-[6px] whitespace-nowrap rounded-[6px] bg-trukkas-blue px-4 py-2 text-[11px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:mt-7 md:h-11 md:w-fit md:rounded-[5px] md:px-5 md:py-0 md:text-[13px]"
             >
-              {panel.button} <ArrowRight size={15} />
+              {panel.button} <ArrowRight size={14} className="md:size-[15px]" />
             </a>
           </div>
         </motion.article>
@@ -471,9 +471,13 @@ function StoreBadge({
     <a
       href={href}
       aria-label={label}
-      className="focus-ring inline-flex rounded-[999px] transition hover:-translate-y-0.5"
+      className="focus-ring inline-flex h-12 w-[159px] items-center justify-center rounded-[6px] transition hover:-translate-y-0.5"
     >
-      <img src={image} alt={label} className="h-20 w-auto sm:h-24" />
+      <img
+        src={image}
+        alt={label}
+        className="h-full w-full rounded-[6px]"
+      />
     </a>
   )
 }
@@ -547,7 +551,7 @@ function AppSection() {
           Request trucks, track jobs, manage documents, confirm deliveries - all
           from one app. Available on iOS and Android.
         </p>
-        <div className="mt-6 flex flex-col items-center justify-center gap-2 sm:mt-8 sm:flex-row sm:gap-3">
+        <div className="mt-6 flex items-center justify-center gap-3 sm:mt-8 md:gap-3">
           <StoreBadge
             href="#contact"
             image={appStoreButton}
@@ -571,7 +575,11 @@ function Footer() {
         <div className="border-t border-white/10 pt-14">
           <div className="grid gap-14 md:grid-cols-[1fr_0.75fr]">
             <div>
-              <img src={logoFooter} alt="Trukkas" className="h-[58px] w-auto" />
+              <img
+                src={logoFooter}
+                alt="Trukkas"
+                className="h-[72px] w-auto md:h-[58px]"
+              />
               <p className="mt-8 max-w-[330px] text-[15px] font-medium leading-7 text-white/75">
                 A trusted, transparent freight logistics marketplace connecting
                 freight forwarders with verified truckers across Nigeria.
@@ -596,7 +604,7 @@ function Footer() {
           </div>
 
           <div className="mt-16 border-t border-white/10 pt-6 text-[12px] text-white/35">
-            (c) 2026 Trukkas. All rights reserved. Lagos, Nigeria.
+            © 2026 Trukkas. All rights reserved. Lagos, Nigeria.
           </div>
         </div>
       </div>
