@@ -26,7 +26,7 @@ import truckSunset from '../assets/truck-sunset.png'
 import truckField from '../assets/truck-field.png'
 
 const navItems = [
-  { label: 'How it works', drawerLabel: 'How It Works', href: '#how-it-works' },
+  { label: 'How it works', drawerLabel: 'How It Works', href: '/how-it-works' },
   {
     label: 'For Truckers',
     drawerLabel: 'For Truckers & Drivers',
