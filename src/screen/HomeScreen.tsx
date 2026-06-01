@@ -30,7 +30,7 @@ const navItems = [
   {
     label: 'For Truckers',
     drawerLabel: 'For Truckers & Drivers',
-    href: '#for-truckers',
+    href: '/for-truckers',
   },
   {
     label: 'Safety & Trust',

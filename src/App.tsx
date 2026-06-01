@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import RootLayout from './layout/RootLayout'
 import AboutScreen from './screen/AboutScreen'
 import ContactScreen from './screen/ContactScreen'
+import ForTruckersScreen from './screen/ForTruckersScreen'
 import HowItWorksScreen from './screen/HowItWorksScreen'
 import HomeScreen from './screen/HomeScreen'
 import NotFoundScreen from './screen/NotFoundScreen'
@@ -13,6 +14,7 @@ function App() {
       <Route element={<RootLayout />}>
         <Route index element={<HomeScreen />} />
         <Route path="how-it-works" element={<HowItWorksScreen />} />
+        <Route path="for-truckers" element={<ForTruckersScreen />} />
         <Route path="services" element={<ServicesScreen />} />
         <Route path="about" element={<AboutScreen />} />
         <Route path="contact" element={<ContactScreen />} />

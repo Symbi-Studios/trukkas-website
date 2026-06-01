@@ -7,7 +7,8 @@ import { navigationItems } from '../data/navigation'
 function RootLayout() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { pathname } = useLocation()
-  const isLandingPage = pathname === '/' || pathname === '/how-it-works'
+  const isLandingPage =
+    pathname === '/' || pathname === '/how-it-works' || pathname === '/for-truckers'
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `rounded-full px-4 py-2 text-[14px] font-medium transition ${

@@ -32,7 +32,7 @@ type TimelineStep = {
 
 const navItems = [
   { label: 'How it works', href: '/how-it-works' },
-  { label: 'For Truckers', href: '/how-it-works#for-truckers' },
+  { label: 'For Truckers', href: '/for-truckers' },
   { label: 'Safety & Trust', href: '/#safety-and-trust' },
   { label: 'Contact', href: '/contact' },
 ]
@@ -157,8 +157,8 @@ function HowItWorksNav() {
   }, [menuOpen])
 
   return (
-    <header className="container-shell fixed left-1/2 top-5 z-50 -translate-x-1/2">
-      <div className="flex h-10 items-center justify-between rounded-[8px] bg-white px-3 shadow-[0_18px_55px_rgb(0_0_0/0.14)] md:h-[76px] md:rounded-[26px] md:px-8">
+    <header className="fixed inset-x-0 top-5 z-50 px-4 md:px-0">
+      <div className="container-shell flex h-10 items-center justify-between rounded-[8px] bg-white px-3 shadow-[0_18px_55px_rgb(0_0_0/0.14)] md:h-[76px] md:rounded-[26px] md:px-8">
         <nav className="hidden items-center gap-6 text-[12px] font-bold text-[#0d1017] md:flex">
           {navItems.map((item) => (
             <a
@@ -447,7 +447,16 @@ function Footer() {
                   <ul className="mt-6 grid gap-4 text-[13px] font-medium text-white/75">
                     {links.map((link) => (
                       <li key={link}>
-                        <a href={link === 'Home' ? '/' : '/how-it-works'} className="transition hover:text-white">
+                        <a
+                          href={
+                            link === 'Home'
+                              ? '/'
+                              : link === 'For Truckers'
+                                ? '/for-truckers'
+                                : '/how-it-works'
+                          }
+                          className="transition hover:text-white"
+                        >
                           {link}
                         </a>
                       </li>
