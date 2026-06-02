@@ -76,8 +76,8 @@ function ContactNav() {
 
   return (
     <header className="fixed inset-x-0 top-5 z-50 px-4 md:px-0">
-      <div className="container-shell flex h-10 items-center justify-between rounded-[8px] bg-white px-3 shadow-[0_18px_55px_rgb(0_0_0/0.14)] md:h-[76px] md:justify-start md:gap-9 md:rounded-[26px] md:px-8">
-        <nav className="hidden items-center gap-6 text-[12px] font-bold text-[#0d1017] md:order-2 md:flex">
+      <div className="container-shell flex h-10 items-center justify-between rounded-[8px] bg-white px-3 shadow-[0_18px_55px_rgb(0_0_0/0.14)] md:h-[76px] md:justify-start md:rounded-[26px] md:px-8">
+        <nav className="hidden items-center gap-6 text-[12px] font-bold text-[#0d1017] md:order-2 md:ml-auto md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
@@ -97,7 +97,7 @@ function ContactNav() {
 
         <a
           href="#get-the-app"
-          className="focus-ring hidden h-12 items-center gap-2 rounded-[5px] bg-trukkas-blue px-6 text-[13px] font-bold text-white shadow-[0_4px_40px_rgb(2_65_232/0.3)] transition hover:-translate-y-0.5 md:order-3 md:ml-auto md:inline-flex"
+          className="focus-ring hidden h-12 items-center gap-2 rounded-[5px] bg-trukkas-blue px-6 text-[13px] font-bold text-white shadow-[0_4px_40px_rgb(2_65_232/0.3)] transition hover:-translate-y-0.5 md:order-3 md:ml-7 md:inline-flex"
         >
           Get the App <ArrowRight size={16} />
         </a>

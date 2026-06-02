@@ -78,12 +78,12 @@ function LandingNav() {
   }, [menuOpen])
 
   return (
-    <header className="relative z-30 flex h-14 items-center justify-between px-4 text-white md:h-16 md:justify-start md:gap-9 md:px-11">
+    <header className="relative z-30 flex h-14 items-center justify-between px-4 text-white md:h-16 md:justify-start md:px-11">
       <a href="/" className="focus-ring rounded-card md:hidden">
         <img src={logoWhite} alt="Trukkas" className="h-5 w-auto" />
       </a>
 
-      <nav className="hidden items-center gap-7 text-[13px] font-bold md:order-2 md:flex">
+      <nav className="hidden items-center gap-7 text-[13px] font-bold md:order-2 md:ml-auto md:flex">
         {navItems.map((item) => (
           <a
             key={item.href}
@@ -114,7 +114,7 @@ function LandingNav() {
 
       <a
         href="#get-the-app"
-        className="focus-ring hidden h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:order-3 md:ml-auto md:inline-flex"
+        className="focus-ring hidden h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:order-3 md:ml-7 md:inline-flex"
       >
         Get the App <ArrowRight size={15} />
       </a>
