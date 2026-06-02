@@ -9,7 +9,7 @@ import {
   Send,
   X,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { type FormEvent, useEffect, useState } from 'react'
 import PageTransition from '../components/PageTransition'
 import appStoreButton from '../assets/app-store-button-tight.png'
 import playStoreButton from '../assets/play-store-button-tight.png'
@@ -17,9 +17,11 @@ import logoBlue from '../assets/trukkas-logo-blue.png'
 import logoFooter from '../assets/trukkas-logo-footer.png'
 import truckSunset from '../assets/truck-sunset.png'
 
-const formspreeEndpoint = import.meta.env.VITE_FORMSPREE_ENDPOINT as
+const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY as
   | string
   | undefined
+
+const web3FormsEndpoint = 'https://api.web3forms.com/submit'
 
 const navItems = [
   { label: 'How it works', href: '/how-it-works' },
@@ -217,24 +219,29 @@ function ContactForm() {
   >('idle')
   const [statusMessage, setStatusMessage] = useState('')
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    if (!formspreeEndpoint) {
+    if (!web3FormsAccessKey) {
       setSubmitState('error')
-      setStatusMessage('Form endpoint is not configured yet.')
+      setStatusMessage('Web3Forms access key is not configured yet.')
       return
     }
 
     const form = event.currentTarget
     const formData = new FormData(form)
-    const payload = Object.fromEntries(formData.entries())
+    const payload = {
+      access_key: web3FormsAccessKey,
+      subject: 'New Trukkas contact form message',
+      from_name: 'Trukkas Landing',
+      ...Object.fromEntries(formData.entries()),
+    }
 
     setSubmitState('submitting')
     setStatusMessage('')
 
     try {
-      const response = await fetch(formspreeEndpoint, {
+      const response = await fetch(web3FormsEndpoint, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -242,9 +249,10 @@ function ContactForm() {
         },
         body: JSON.stringify(payload),
       })
+      const result = (await response.json()) as { success?: boolean; message?: string }
 
-      if (!response.ok) {
-        throw new Error('Formspree submission failed')
+      if (!response.ok || !result.success) {
+        throw new Error(result.message ?? 'Web3Forms submission failed')
       }
 
       form.reset()

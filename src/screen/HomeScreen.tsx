@@ -37,7 +37,7 @@ const navItems = [
     drawerLabel: 'Safety & Trust',
     href: '/safety-and-trust',
   },
-  { label: 'Contact', drawerLabel: 'Contact', href: '#contact' },
+  { label: 'Contact', drawerLabel: 'Contact', href: '/contact' },
 ]
 
 const steps = [
