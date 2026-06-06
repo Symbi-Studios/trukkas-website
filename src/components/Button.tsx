@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 
 type ButtonVariant = 'primary' | 'secondary' | 'dark' | 'light'
 
@@ -32,7 +32,7 @@ function Button({
 
   if (href) {
     return (
-      <Link to={href} className={classes}>
+      <Link href={href} className={classes}>
         {children}
       </Link>
     )

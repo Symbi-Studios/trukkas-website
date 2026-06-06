@@ -1,14 +1,16 @@
-import { AnimatePresence, motion } from 'framer-motion'
+'use client'
+
+import { motion } from 'framer-motion'
 import {
   ArrowRight,
   Check,
   ChevronRight,
   FileText,
-  Menu,
-  X,
 } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import GeneralNav from '../components/GeneralNav'
 import PageTransition from '../components/PageTransition'
+import { imageSrc, type ImageAsset } from '../lib/assets'
 import appStoreButton from '../assets/app-store-button-tight.png'
 import heroBottomBar from '../assets/hero-bottom-bar.png'
 import driverCardImage from '../assets/hero-driver-card.png'
@@ -19,26 +21,9 @@ import howTimelineCard from '../assets/how-timeline-card.png'
 import containersImage from '../assets/trukkas-containers-fit.png'
 import phoneImage from '../assets/iphone-request.png'
 import playStoreButton from '../assets/play-store-button-tight.png'
-import logoBlue from '../assets/trukkas-logo-blue.png'
 import logoFooter from '../assets/trukkas-logo-footer.png'
-import logoWhite from '../assets/trukkas-logo-white.png'
 import truckSunset from '../assets/truck-sunset.png'
 import truckField from '../assets/truck-field.png'
-
-const navItems = [
-  { label: 'How it works', drawerLabel: 'How It Works', href: '/how-it-works' },
-  {
-    label: 'For Truckers',
-    drawerLabel: 'For Truckers & Drivers',
-    href: '/for-truckers',
-  },
-  {
-    label: 'Safety & Trust',
-    drawerLabel: 'Safety & Trust',
-    href: '/safety-and-trust',
-  },
-  { label: 'Contact', drawerLabel: 'Contact', href: '/contact' },
-]
 
 const steps = [
   {
@@ -66,116 +51,13 @@ const footerLinks = {
   Legal: ['Privacy Policy', 'Terms of Service', 'Escrow Policy', 'Driver Agreement'],
 }
 
-function LandingNav() {
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [menuOpen])
-
-  return (
-    <header className="relative z-30 flex h-14 items-center justify-between px-4 text-white md:h-16 md:justify-start md:px-11">
-      <a href="/" className="focus-ring rounded-card md:hidden">
-        <img src={logoWhite} alt="Trukkas" className="h-5 w-auto" />
-      </a>
-
-      <nav className="hidden items-center gap-7 text-[13px] font-bold md:order-2 md:ml-auto md:flex">
-        {navItems.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            className="opacity-90 transition hover:opacity-100"
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-
-      <button
-        type="button"
-        className="focus-ring inline-grid size-9 place-items-center rounded-full bg-white/15 md:hidden"
-        aria-label="Open navigation"
-        aria-expanded={menuOpen}
-        onClick={() => setMenuOpen(true)}
-      >
-        <Menu size={17} />
-      </button>
-
-      <a
-        href="/"
-        className="focus-ring hidden rounded-card md:order-1 md:inline-flex"
-      >
-        <img src={logoWhite} alt="Trukkas" className="h-6 w-auto" />
-      </a>
-
-      <a
-        href="#get-the-app"
-        className="focus-ring hidden h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:order-3 md:ml-7 md:inline-flex"
-      >
-        Get the App <ArrowRight size={15} />
-      </a>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[100] bg-trukkas-bg-alt px-7 py-13 text-[#090909]"
-            initial={{ opacity: 0, x: '12%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '8%' }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
-          >
-            <div className="flex items-center justify-between">
-              <a href="/" className="focus-ring rounded-card" onClick={() => setMenuOpen(false)}>
-                <img src={logoBlue} alt="Trukkas" className="h-7 w-auto" />
-              </a>
-              <button
-                type="button"
-                className="focus-ring grid size-10 place-items-center rounded-full text-trukkas-blue"
-                aria-label="Close navigation"
-                onClick={() => setMenuOpen(false)}
-              >
-                <X size={24} />
-              </button>
-            </div>
-
-            <nav className="mt-15 grid gap-5 text-[27px] font-bold leading-tight tracking-[-0.01em]">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="w-fit transition hover:text-trukkas-blue"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.drawerLabel}
-                </a>
-              ))}
-            </nav>
-
-            <a
-              href="#get-the-app"
-              className="focus-ring mt-7 inline-flex h-11 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[15px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D]"
-              onClick={() => setMenuOpen(false)}
-            >
-              Get the App <ArrowRight size={17} />
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  )
-}
-
 function HeroSection() {
   return (
     <section className="landing-shell overflow-hidden rounded-[24px] bg-trukkas-light-blue">
       <div className="relative h-[560px] overflow-hidden bg-[linear-gradient(180deg,#58bddf_0%,#b8e9f6_62%,#eef7f8_100%)] md:h-[calc(100svh-68px)] md:min-h-[760px] lg:min-h-[860px] xl:min-h-[920px]">
-        <LandingNav />
+        <GeneralNav />
 
-        <div className="relative z-20 mx-auto max-w-4xl px-5 pt-2 text-center md:px-6 md:pt-8">
+        <div className="relative z-20 mx-auto max-w-4xl px-5 pt-18 text-center md:px-6 md:pt-22">
           <motion.div
             className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-[8px] font-bold text-success shadow-soft md:mb-6 md:px-4 md:py-1.5 md:text-[12px]"
             initial={{ opacity: 0, y: 12 }}
@@ -230,7 +112,7 @@ function HeroSection() {
 
         <div className="absolute inset-x-0 bottom-[-22px] z-10 overflow-hidden md:bottom-[-36px] lg:bottom-[-44px]">
           <img
-            src={containersImage}
+            src={imageSrc(containersImage)}
             alt=""
             className="mx-auto h-[190px] w-full object-cover object-bottom sm:h-[230px] md:h-auto md:w-full md:max-w-none"
           />
@@ -243,17 +125,17 @@ function HeroSection() {
           transition={{ delay: 0.34, duration: 0.75, ease: 'easeOut' }}
         >
           <img
-            src={phoneImage}
+            src={imageSrc(phoneImage)}
             alt="Trukkas mobile app requesting a cargo truck"
             className="absolute left-1/2 top-0 w-[292px] max-w-[82vw] -translate-x-1/2 sm:w-[330px] md:w-[440px] lg:w-[510px]"
           />
           <img
-            src={driverCardImage}
+            src={imageSrc(driverCardImage)}
             alt=""
             className="absolute left-[-76px] top-[132px] w-[225px] drop-shadow-2xl md:left-[4%] md:top-[168px] md:w-[285px] lg:top-[185px] lg:w-[340px]"
           />
           <img
-            src={documentsCardImage}
+            src={imageSrc(documentsCardImage)}
             alt=""
             className="absolute right-[-150px] top-[58px] w-[260px] drop-shadow-2xl md:right-[-70px] md:top-[178px] md:w-[330px] lg:right-[2%] lg:top-[235px] lg:w-[360px] xl:w-[420px]"
           />
@@ -272,7 +154,7 @@ function TrustTicker() {
       className="h-[30px] overflow-hidden bg-trukkas-blue md:h-[46px]"
     >
       <img
-        src={heroBottomBar}
+        src={imageSrc(heroBottomBar)}
         alt=""
         className="h-full w-full max-w-none object-cover object-left"
       />
@@ -382,7 +264,7 @@ function HowItWorksSection() {
                 }}
               />
               <img
-                src={step.image}
+                  src={imageSrc(step.image)}
                 alt=""
                 className="w-full rounded-[10px] drop-shadow-[0_18px_38px_rgb(0_0_0/0.08)]"
               />
@@ -430,7 +312,7 @@ function AudienceSection() {
           transition={{ duration: 0.65 }}
         >
           <img
-            src={panel.image}
+            src={imageSrc(panel.image)}
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -464,7 +346,7 @@ function StoreBadge({
   label,
 }: {
   href: string
-  image: string
+  image: ImageAsset
   label: string
 }) {
   return (
@@ -474,7 +356,7 @@ function StoreBadge({
       className="focus-ring inline-flex h-12 w-[159px] items-center justify-center rounded-[6px] transition hover:-translate-y-0.5"
     >
       <img
-        src={image}
+        src={imageSrc(image)}
         alt={label}
         className="h-full w-full rounded-[6px]"
       />
@@ -576,7 +458,7 @@ function Footer() {
           <div className="grid gap-14 md:grid-cols-[1fr_0.75fr]">
             <div>
               <img
-                src={logoFooter}
+                src={imageSrc(logoFooter)}
                 alt="Trukkas"
                 className="h-[72px] w-auto md:h-[58px]"
               />
@@ -592,9 +474,9 @@ function Footer() {
                   <ul className="mt-7 grid gap-4 text-[13px] font-medium text-white/75">
                     {links.map((link) => (
                       <li key={link}>
-                        <a href="/" className="transition hover:text-white">
+                        <Link href="/" className="transition hover:text-white">
                           {link}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>

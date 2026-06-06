@@ -1,12 +1,19 @@
+'use client'
+
 import { Menu, X } from 'lucide-react'
-import { useState } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { type ReactNode, useState } from 'react'
 import Logo from '../components/Logo'
 import { navigationItems } from '../data/navigation'
 
-function RootLayout() {
+type RootLayoutProps = {
+  children: ReactNode
+}
+
+function RootLayout({ children }: RootLayoutProps) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const { pathname } = useLocation()
+  const pathname = usePathname()
   const isLandingPage =
     pathname === '/' ||
     pathname === '/how-it-works' ||
@@ -14,7 +21,7 @@ function RootLayout() {
     pathname === '/safety-and-trust' ||
     pathname === '/contact'
 
-  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+  const navLinkClass = (isActive: boolean) =>
     `rounded-full px-4 py-2 text-[14px] font-medium transition ${
       isActive
         ? 'bg-trukkas-blue text-white'
@@ -30,9 +37,13 @@ function RootLayout() {
 
             <nav className="hidden items-center gap-1 rounded-full border border-cool-300 bg-white/70 p-1 md:flex">
               {navigationItems.map((item) => (
-                <NavLink key={item.href} to={item.href} className={navLinkClass}>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={navLinkClass(pathname === item.href)}
+                >
                   {item.label}
-                </NavLink>
+                </Link>
               ))}
             </nav>
 
@@ -54,24 +65,24 @@ function RootLayout() {
             </button>
           </div>
 
-          {menuOpen && (
+            {menuOpen && (
             <nav className="container-shell grid gap-2 pb-5 md:hidden">
               {navigationItems.map((item) => (
-                <NavLink
+                <Link
                   key={item.href}
-                  to={item.href}
-                  className={navLinkClass}
+                  href={item.href}
+                  className={navLinkClass(pathname === item.href)}
                   onClick={() => setMenuOpen(false)}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               ))}
             </nav>
           )}
         </header>
       )}
 
-      <Outlet />
+      {children}
     </div>
   )
 }

@@ -1,18 +1,19 @@
-import { AnimatePresence, motion } from 'framer-motion'
+'use client'
+
+import { motion } from 'framer-motion'
 import {
   ArrowLeft,
   ArrowRight,
   Building2,
   Check,
-  Menu,
   User,
-  X,
 } from 'lucide-react'
-import { type ComponentType, useEffect, useRef, useState } from 'react'
+import { type ComponentType, useRef } from 'react'
+import GeneralNav from '../components/GeneralNav'
 import PageTransition from '../components/PageTransition'
+import { imageSrc, type ImageAsset } from '../lib/assets'
 import appStoreButton from '../assets/app-store-button-tight.png'
 import playStoreButton from '../assets/play-store-button-tight.png'
-import logoBlue from '../assets/trukkas-logo-blue.png'
 import logoFooter from '../assets/trukkas-logo-footer.png'
 import truckSunset from '../assets/truck-sunset.png'
 import whyDetailsIcon from '../assets/why-details-icon.png'
@@ -22,13 +23,6 @@ import whySettlementIcon from '../assets/why-settlement-icon.png'
 import whyUpfrontIcon from '../assets/why-upfront-icon.png'
 
 type IconType = ComponentType<{ size?: number; strokeWidth?: number }>
-
-const navItems = [
-  { label: 'How it works', href: '/how-it-works' },
-  { label: 'For Truckers', href: '/for-truckers' },
-  { label: 'Safety & Trust', href: '/safety-and-trust' },
-  { label: 'Contact', href: '/contact' },
-]
 
 const footerLinks = {
   Platform: [
@@ -48,7 +42,7 @@ const footerLinks = {
 const benefitCards: Array<{
   title: string
   description: string
-  icon: string
+  icon: ImageAsset
 }> = [
   {
     title: '30% upfront every single job',
@@ -121,99 +115,6 @@ const requirementGroups = [
     ],
   },
 ]
-
-function TruckersNav() {
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [menuOpen])
-
-  return (
-    <header className="fixed inset-x-0 top-5 z-50 px-4 md:px-0">
-      <div className="container-shell flex h-10 items-center justify-between rounded-[8px] bg-white px-3 shadow-[0_18px_55px_rgb(0_0_0/0.14)] md:h-[76px] md:justify-start md:rounded-[26px] md:px-8">
-        <nav className="hidden items-center gap-6 text-[12px] font-bold text-[#0d1017] md:order-2 md:ml-auto md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className={`transition hover:text-trukkas-blue ${
-                item.href === '/for-truckers' ? 'text-trukkas-blue' : ''
-              }`}
-            >
-              {item.label}
-            </a>
-          ))}
-        </nav>
-
-        <a href="/" className="focus-ring rounded-card md:order-1">
-          <img src={logoBlue} alt="Trukkas" className="h-[19px] w-auto md:h-[28px]" />
-        </a>
-
-        <a
-          href="#get-the-app"
-          className="focus-ring hidden h-12 items-center gap-2 rounded-[5px] bg-trukkas-blue px-6 text-[13px] font-bold text-white shadow-[0_4px_40px_rgb(2_65_232/0.3)] transition hover:-translate-y-0.5 md:order-3 md:ml-7 md:inline-flex"
-        >
-          Get the App <ArrowRight size={16} />
-        </a>
-
-        <button
-          type="button"
-          className="focus-ring grid size-7 place-items-center rounded text-trukkas-blue md:hidden"
-          aria-label="Open navigation"
-          aria-expanded={menuOpen}
-          onClick={() => setMenuOpen(true)}
-        >
-          <Menu size={18} />
-        </button>
-      </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            className="fixed inset-0 z-[100] bg-trukkas-bg-alt px-7 py-10 text-[#090909]"
-            initial={{ opacity: 0, x: '12%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '8%' }}
-            transition={{ duration: 0.24, ease: 'easeOut' }}
-          >
-            <div className="flex items-center justify-between">
-              <a href="/" className="focus-ring rounded-card" onClick={() => setMenuOpen(false)}>
-                <img src={logoBlue} alt="Trukkas" className="h-7 w-auto" />
-              </a>
-              <button
-                type="button"
-                className="focus-ring grid size-10 place-items-center rounded-full text-trukkas-blue"
-                aria-label="Close navigation"
-                onClick={() => setMenuOpen(false)}
-              >
-                <X size={24} />
-              </button>
-            </div>
-            <nav className="mt-14 grid gap-5 text-[27px] font-bold leading-tight">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className={`w-fit transition hover:text-trukkas-blue ${
-                    item.href === '/for-truckers' ? 'text-trukkas-blue' : ''
-                  }`}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
-  )
-}
 
 function Eyebrow({ children }: { children: string }) {
   return (
@@ -293,7 +194,7 @@ function BenefitsSection() {
                   viewport={{ once: true, amount: 0.35 }}
                   transition={{ delay: index * 0.08, duration: 0.5, ease: 'easeOut' }}
                 >
-                  <img src={card.icon} alt="" className="size-12 md:size-13" />
+                  <img src={imageSrc(card.icon)} alt="" className="size-12 md:size-13" />
                   <h3 className="mt-7 text-[20px] font-bold leading-tight tracking-[-0.01em] text-[#101010] md:text-[21px]">
                     {card.title}
                   </h3>
@@ -393,7 +294,7 @@ function RequirementsSection() {
           viewport={{ once: true, amount: 0.35 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
         >
-          <BluePill>What you'll need</BluePill>
+          <BluePill>What you&apos;ll need</BluePill>
           <h2 className="mt-7 max-w-[440px] text-[43px] font-bold leading-[1.02] tracking-[-0.02em] text-[#101010] md:text-[58px]">
             Registration requirements.
           </h2>
@@ -440,7 +341,7 @@ function StoreBadge({
   label,
 }: {
   href: string
-  image: string
+  image: ImageAsset
   label: string
 }) {
   return (
@@ -449,7 +350,7 @@ function StoreBadge({
       aria-label={label}
       className="focus-ring inline-flex h-12 w-[159px] items-center justify-center rounded-[6px] transition hover:-translate-y-0.5"
     >
-      <img src={image} alt={label} className="h-full w-full rounded-[6px]" />
+      <img src={imageSrc(image)} alt={label} className="h-full w-full rounded-[6px]" />
     </a>
   )
 }
@@ -458,7 +359,7 @@ function AppDownloadSection() {
   return (
     <section id="get-the-app" className="relative min-h-[470px] overflow-hidden bg-trukkas-dark-blue md:hidden">
       <img
-        src={truckSunset}
+        src={imageSrc(truckSunset)}
         alt=""
         className="absolute inset-0 h-full w-full object-cover object-center"
       />
@@ -490,7 +391,7 @@ function Footer() {
         <div className="border-t border-white/10 pt-12">
           <div className="grid gap-12 md:grid-cols-[1fr_0.75fr]">
             <div>
-              <img src={logoFooter} alt="Trukkas" className="h-[70px] w-auto md:h-[62px]" />
+              <img src={imageSrc(logoFooter)} alt="Trukkas" className="h-[70px] w-auto md:h-[62px]" />
               <p className="mt-7 max-w-[330px] text-[14px] font-medium leading-7 text-white/75">
                 A trusted, transparent freight logistics marketplace connecting freight
                 forwarders with verified truckers across Nigeria.
@@ -526,7 +427,7 @@ function ForTruckersScreen() {
   return (
     <PageTransition>
       <div className="min-h-screen bg-trukkas-bg-alt">
-        <TruckersNav />
+        <GeneralNav activeHref="/for-truckers" />
         <HeroSection />
         <BenefitsSection />
         <GetStartedSection />
