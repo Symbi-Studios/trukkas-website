@@ -15,11 +15,11 @@ import {
 import { type ComponentType, useMemo, useState } from 'react'
 import GeneralNav from '../components/GeneralNav'
 import PageTransition from '../components/PageTransition'
+import SiteFooter from '../components/SiteFooter'
 import { imageSrc, type ImageAsset } from '../lib/assets'
 import appStoreButton from '../assets/app-store-button-tight.png'
 import orderPhoneImage from '../assets/iphone-order-details.png'
 import playStoreButton from '../assets/play-store-button-tight.png'
-import logoFooter from '../assets/trukkas-logo-footer.png'
 import truckSunset from '../assets/truck-sunset.png'
 
 type Audience = 'forwarders' | 'truckers'
@@ -28,11 +28,6 @@ type TimelineStep = {
   title: string
   description: string
   icon: ComponentType<{ size?: number; strokeWidth?: number }>
-}
-
-const footerLinks = {
-  Platform: ['Home', 'How It Works', 'For Truckers', 'Safety & Trust'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Escrow Policy', 'Driver Agreement'],
 }
 
 const timelineCopy: Record<Audience, TimelineStep[]> = {
@@ -331,56 +326,6 @@ function AppDownloadSection() {
   )
 }
 
-function Footer() {
-  return (
-    <footer id="contact" className="bg-trukkas-dark-blue py-14 text-white md:py-20">
-      <div className="container-shell">
-        <div className="border-t border-white/10 pt-12">
-          <div className="grid gap-12 md:grid-cols-[1fr_0.75fr]">
-            <div>
-              <img src={imageSrc(logoFooter)} alt="Trukkas" className="h-[70px] w-auto md:h-[62px]" />
-              <p className="mt-7 max-w-[330px] text-[14px] font-medium leading-7 text-white/75">
-                A trusted, transparent freight logistics marketplace connecting freight
-                forwarders with verified truckers across Nigeria.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-10">
-              {Object.entries(footerLinks).map(([group, links]) => (
-                <div key={group}>
-                  <h3 className="text-[17px] font-bold">{group}</h3>
-                  <ul className="mt-6 grid gap-4 text-[13px] font-medium text-white/75">
-                    {links.map((link) => (
-                      <li key={link}>
-                        <a
-                          href={
-                            link === 'Home'
-                              ? '/'
-                              : link === 'For Truckers'
-                                ? '/for-truckers'
-                                : link === 'Safety & Trust'
-                                  ? '/safety-and-trust'
-                                  : '/how-it-works'
-                          }
-                          className="transition hover:text-white"
-                        >
-                          {link}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-14 border-t border-white/10 pt-6 text-[12px] text-white/35">
-            &copy; 2026 Trukkas. All rights reserved. Lagos, Nigeria.
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
 function HowItWorksScreen() {
   const [audience, setAudience] = useState<Audience>('forwarders')
 
@@ -392,7 +337,7 @@ function HowItWorksScreen() {
         <AudienceTabs audience={audience} setAudience={setAudience} />
         <Timeline audience={audience} />
         <AppDownloadSection />
-        <Footer />
+        <SiteFooter />
       </div>
     </PageTransition>
   )
