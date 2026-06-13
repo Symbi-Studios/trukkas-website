@@ -30,18 +30,6 @@ export const routes = [
       'Trukkas protects freight jobs with verified drivers, reviewed documents, escrowed payments, live GPS visibility, and logged delivery milestones.',
   },
   {
-    path: '/services',
-    title: 'Services | Trukkas Freight Logistics Marketplace',
-    description:
-      'Explore Trukkas freight logistics services for container movement, verified trucking, document review, escrow, and delivery tracking.',
-  },
-  {
-    path: '/about',
-    title: 'About Trukkas | Freight Logistics Built for Nigeria',
-    description:
-      'Learn about Trukkas, a transparent freight logistics marketplace connecting freight forwarders with verified truckers across Nigeria.',
-  },
-  {
     path: '/contact',
     title: 'Contact Trukkas | Start Moving Freight Smarter',
     description:
