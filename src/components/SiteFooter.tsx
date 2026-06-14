@@ -11,10 +11,10 @@ const footerLinks = {
     { label: 'Contact', href: '/contact' },
   ],
   Legal: [
-    { label: 'Privacy Policy', href: '/contact' },
-    { label: 'Terms of Service', href: '/contact' },
-    { label: 'Escrow Policy', href: '/contact' },
-    { label: 'Driver Agreement', href: '/contact' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Terms of Use', href: '/terms-of-use' },
+    { label: 'Driver Policy', href: '/driver-policy' },
+    { label: 'Freight Forwarder Policy', href: '/freight-forwarder-policy' },
   ],
 }
 
