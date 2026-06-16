@@ -31,7 +31,7 @@ const infoCards = [
   },
   {
     title: 'Based in Lagos',
-    body: ['Operating freight routes across Nigeria starting with Lagos port corridors.'],
+    body: ['11B Pelewura way, Airways Bus Stop, Apapa Lagos, Nigeria'],
     icon: MapPin,
   },
   {
