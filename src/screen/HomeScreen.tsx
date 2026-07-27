@@ -7,9 +7,9 @@ import {
   ChevronRight,
   FileText,
 } from 'lucide-react'
-import Link from 'next/link'
 import GeneralNav from '../components/GeneralNav'
 import PageTransition from '../components/PageTransition'
+import SiteFooter from '../components/SiteFooter'
 import { imageSrc, type ImageAsset } from '../lib/assets'
 import appStoreButton from '../assets/app-store-button-tight.png'
 import heroBottomBar from '../assets/hero-bottom-bar.png'
@@ -21,7 +21,6 @@ import howTimelineCard from '../assets/how-timeline-card.png'
 import containersImage from '../assets/trukkas-containers-fit.png'
 import phoneImage from '../assets/iphone-request.png'
 import playStoreButton from '../assets/play-store-button-tight.png'
-import logoFooter from '../assets/trukkas-logo-footer.png'
 import truckSunset from '../assets/truck-sunset.png'
 import truckField from '../assets/truck-field.png'
 
@@ -45,11 +44,6 @@ const steps = [
     image: howTimelineCard,
   },
 ]
-
-const footerLinks = {
-  Platform: ['Home', 'How It Works', 'For Truckers', 'Safety & Trust'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'Escrow Policy', 'Driver Agreement'],
-}
 
 function HeroSection() {
   return (
@@ -450,50 +444,6 @@ function AppSection() {
   )
 }
 
-function Footer() {
-  return (
-    <footer id="contact" className="bg-trukkas-dark-blue py-16 text-white md:py-24">
-      <div className="container-shell">
-        <div className="border-t border-white/10 pt-14">
-          <div className="grid gap-14 md:grid-cols-[1fr_0.75fr]">
-            <div>
-              <img
-                src={imageSrc(logoFooter)}
-                alt="Trukkas"
-                className="h-[72px] w-auto md:h-[58px]"
-              />
-              <p className="mt-8 max-w-[330px] text-[15px] font-medium leading-7 text-white/75">
-                A trusted, transparent freight logistics marketplace connecting
-                freight forwarders with verified truckers across Nigeria.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-10">
-              {Object.entries(footerLinks).map(([group, links]) => (
-                <div key={group}>
-                  <h3 className="text-[18px] font-bold">{group}</h3>
-                  <ul className="mt-7 grid gap-4 text-[13px] font-medium text-white/75">
-                    {links.map((link) => (
-                      <li key={link}>
-                        <Link href="/" className="transition hover:text-white">
-                          {link}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mt-16 border-t border-white/10 pt-6 text-[12px] text-white/35">
-            © 2026 Trukkas. All rights reserved. Lagos, Nigeria.
-          </div>
-        </div>
-      </div>
-    </footer>
-  )
-}
-
 function HomeScreen() {
   return (
     <PageTransition>
@@ -502,7 +452,7 @@ function HomeScreen() {
         <HowItWorksSection />
         <AudienceSection />
         <AppSection />
-        <Footer />
+        <SiteFooter />
       </div>
     </PageTransition>
   )

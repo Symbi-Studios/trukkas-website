@@ -30,22 +30,34 @@ export const routes = [
       'Trukkas protects freight jobs with verified drivers, reviewed documents, escrowed payments, live GPS visibility, and logged delivery milestones.',
   },
   {
-    path: '/services',
-    title: 'Services | Trukkas Freight Logistics Marketplace',
-    description:
-      'Explore Trukkas freight logistics services for container movement, verified trucking, document review, escrow, and delivery tracking.',
-  },
-  {
-    path: '/about',
-    title: 'About Trukkas | Freight Logistics Built for Nigeria',
-    description:
-      'Learn about Trukkas, a transparent freight logistics marketplace connecting freight forwarders with verified truckers across Nigeria.',
-  },
-  {
     path: '/contact',
     title: 'Contact Trukkas | Start Moving Freight Smarter',
     description:
       'Contact Trukkas to post freight jobs, register your truck or fleet, ask about verification, or get support from the logistics team.',
+  },
+  {
+    path: '/privacy-policy',
+    title: 'Privacy Policy | Trukkas',
+    description:
+      'Read the Trukkas Privacy Policy for the platform, mobile applications, dashboards, communications, and related logistics services.',
+  },
+  {
+    path: '/terms-of-use',
+    title: 'Terms of Use | Trukkas',
+    description:
+      'Read the Trukkas Terms of Use for platform access, logistics coordination, payments, user responsibilities, and service conditions.',
+  },
+  {
+    path: '/driver-policy',
+    title: 'Driver Policy | Trukkas',
+    description:
+      'Read the Trukkas Driver Policy covering driver eligibility, verification, conduct, trip obligations, safety, tracking, and compliance.',
+  },
+  {
+    path: '/freight-forwarder-policy',
+    title: 'Freight Forwarder Policy | Trukkas',
+    description:
+      'Read the Trukkas Freight Forwarder Policy covering bookings, cargo declarations, documentation, payments, tracking, and compliance.',
   },
 ]
 

@@ -15,6 +15,7 @@ type GeneralNavItem = {
 
 type GeneralNavProps = {
   activeHref?: string
+  ctaHref?: string
   items?: GeneralNavItem[]
 }
 
@@ -33,7 +34,11 @@ const defaultItems: GeneralNavItem[] = [
   { label: 'Contact', drawerLabel: 'Contact', href: '/contact' },
 ]
 
-function GeneralNav({ activeHref, items = defaultItems }: GeneralNavProps) {
+function GeneralNav({
+  activeHref,
+  ctaHref = '#get-the-app',
+  items = defaultItems,
+}: GeneralNavProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -66,7 +71,7 @@ function GeneralNav({ activeHref, items = defaultItems }: GeneralNavProps) {
         </nav>
 
         <a
-          href="#get-the-app"
+          href={ctaHref}
           className="focus-ring hidden h-10 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[13px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D] transition hover:-translate-y-0.5 md:ml-7 md:inline-flex"
         >
           Get the App <ArrowRight size={15} />
@@ -126,7 +131,7 @@ function GeneralNav({ activeHref, items = defaultItems }: GeneralNavProps) {
             </nav>
 
             <a
-              href="#get-the-app"
+              href={ctaHref}
               className="focus-ring mt-7 inline-flex h-11 items-center gap-2 rounded-[5px] bg-trukkas-blue px-5 text-[15px] font-bold text-white shadow-[0px_4px_40px_0px_#0241E84D]"
               onClick={() => setMenuOpen(false)}
             >
