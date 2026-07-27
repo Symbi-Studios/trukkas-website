@@ -59,6 +59,18 @@ export const routes = [
     description:
       'Read the Trukkas Freight Forwarder Policy covering bookings, cargo declarations, documentation, payments, tracking, and compliance.',
   },
+  {
+    path: '/about',
+    title: 'About Us | Trukkas',
+    description:
+      'Learn about Trukkas, our mission, and how we are transforming container trucking and logistics across Nigeria with trust and transparency.',
+  },
+  {
+    path: '/services',
+    title: 'Our Services | Trukkas Logistics Solutions',
+    description:
+      'Explore Trukkas secure container hauling solutions, protected escrow payment structures, and reliable live GPS cargo tracking tools.',
+  },
 ]
 
 type PageMetadataInput = {

@@ -1,4 +1,3 @@
-import Button from '../components/Button'
 import GeneralNav from '../components/GeneralNav'
 import PageTransition from '../components/PageTransition'
 import SiteFooter from '../components/SiteFooter'
