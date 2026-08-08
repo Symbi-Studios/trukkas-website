@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import '../index.css'
-import RootLayout from '../layout/RootLayout'
+// import RootLayout from '../layout/RootLayout'
 import { absoluteUrl, siteName, siteUrl } from '../lib/seo'
+import LandingPage from '@/components/LandingPage'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -103,19 +104,23 @@ const jsonLd = {
   ],
 }
 
-export default function AppLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function AppLayout(
+//   {
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode
+// }>
+) {
   return (
     <html lang="en">
-      <body>
+      {/* remove the overflow wen main website is live */}
+      <body className="overflow-hidden">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        <RootLayout>{children}</RootLayout>
+        <LandingPage/>
+        {/* <RootLayout>{children}</RootLayout> */}
       </body>
     </html>
   )
